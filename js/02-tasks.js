@@ -6,9 +6,18 @@
  *  значення link цей символ.
  * Використовуй конструкцію if...else.
  */
+//!======================================================
+// let link = 'https://my-site.com/about';
 
-let link = "https://my-site.com/about";
-console.log(link);
+// const hasSlash = link.endsWith('/');
+
+// if (!hasSlash) {
+//   link += '/';
+// }
+
+// console.log(link);
+
+//!======================================================
 
 /**
  * Форматування посилання (includes та логічне «І»)
@@ -19,17 +28,39 @@ console.log(link);
  * Використовуй конструкцію if...else або тернарний оператор.
  */
 
-let url = "https://somesite.com/about";
-console.log(url);
+// let url = 'https://my-site.com/about';
+
+// const hasSlash = url.endsWith('/');
+// const isMySite = url.includes('my-site');
+
+// if (!hasSlash && isMySite) {
+// url += 'awdawedfsefsef';
+// }
+
+// console.log(url);
 
 /*
  * Пошук у рядку методом includes()
  */
 
-const blacklistedWord1 = "spam";
-const blacklistedWord2 = "sale";
+const blacklistedWord1 = 'spam';
+const blacklistedWord2 = 'sale';
 
 const string1 =
   "Hello, I'm Prince Abdul, this is not spam, I'm offering you a million!";
 const string2 = "Biggest SALE this week, don't miss out!";
-const string3 = "#fatlivesmatter advertising campaign";
+const string3 = '#fatlivesmatter advertising campaign';
+//!======================================================
+
+// const userName = 'Volodka';
+// const firstLetter = userName[0];
+
+// const copyFirstLetter = firstLetter.toUpperCase();
+
+// console.log(firstLetter, copyFirstLetter);
+
+// const isEqual = copyFirstLetter === firstLetter;
+
+// console.log(isEqual);
+
+//!======================================================
