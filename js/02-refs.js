@@ -3,20 +3,56 @@
  *
  * Примітиви і складні типи
  * Посилальна рівність (referential equality)
- */
+//  */
 
-const a = [1, 2, 3];
-const b = a;
+//!======================================================
 
-console.log("a", a);
-console.log("b", b);
+// const x = [10, 20, 30];
 
-a[0] = 500;
+// console.log(x[0]);
 
-console.log("a", a);
-console.log("b", b);
+// x[100] = 'Hello';
 
-console.log(a === b);
+//!======================================================
 
-console.log([] === []);
-console.log([1, 2, 3] === [1, 2, 3]);
+// const a = [1, 2, 3];
+
+// const b = [1, 2, 3];
+
+// console.log(a === b);
+
+//!======================================================
+
+// const a = [1, 2, 3];
+
+// const b = a;
+
+// b[0] = 'Hello';
+
+// console.log(a);
+// console.log(b);
+
+// const copy = a;
+
+// copy[0] = 'undefined';
+// console.log(a === b);
+
+//!======================================================
+
+// const a = [1, 2, 3];
+// const b = a;
+
+// console.log("a", a);
+// console.log("b", b);
+
+// a[0] = 500;
+
+// console.log("a", a);
+// console.log("b", b);
+
+// console.log(a === b);
+
+// console.log([] === []);
+// console.log([1, 2, 3] === [1, 2, 3]);
+
+//!======================================================
