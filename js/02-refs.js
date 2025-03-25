@@ -8,9 +8,32 @@
 /**
  * --------------------------
  */
+//!======================================================
 
-const arr = [1, 2, 3];
+// const arr = [1, 2, 3];
 
-function foo() {
-  console.log("hello");
-}
+// arr.firstname = 'Volodka';
+// arr['firstname'] = 'Volodka';
+
+// console.log(arr);
+
+//!======================================================
+// function foo() {
+//   console.log('hello');
+// }
+
+// foo.helloWorld = 'Hello test world';
+
+// console.dir(foo);
+
+// function sayHello() {}
+
+// const x = sayHello;
+
+// x();
+
+//!======================================================
+
+// const x = 10;
+
+// x.toFixed()
