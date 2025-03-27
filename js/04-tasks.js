@@ -3,8 +3,8 @@
  * Можна покласти чи зняти гроші з рахунку.
  */
 const Transaction = {
-  DEPOSIT: "deposit",
-  WITHDRAW: "withdraw",
+  DEPOSIT: 'deposit',
+  WITHDRAW: 'withdraw',
 };
 
 /*
