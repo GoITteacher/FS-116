@@ -1,9 +1,9 @@
 const players = [
-  { id: "player-1", name: "Mango", timePlayed: 310, points: 54, online: true },
-  { id: "player-2", name: "Poly", timePlayed: 470, points: 92, online: false },
-  { id: "player-3", name: "Kiwi", timePlayed: 230, points: 48, online: true },
-  { id: "player-4", name: "Ajax", timePlayed: 150, points: 71, online: false },
-  { id: "player-5", name: "Chelsy", timePlayed: 280, points: 48, online: true },
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: true },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: false },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 280, points: 48, online: true },
 ];
 
 /**
@@ -15,6 +15,10 @@ const players = [
 const isAllOnline = players;
 // console.log('isAllOnline: ', isAllOnline);
 
+// const isProTeam = players.every(player => player.points > 40);
+
+// console.log(isProTeam);
+
 /**
  * Метод some
  *
@@ -22,7 +26,15 @@ const isAllOnline = players;
  * - Повертає true якщо хоча б один елемент масиву задовольняє умову
  */
 const isAnyOnline = players;
-console.log("isAnyOnline: ", isAnyOnline);
+console.log('isAnyOnline: ', isAnyOnline);
 
 const anyHardcorePlayers = players;
-console.log("anyHardcorePlayers: ", anyHardcorePlayers);
+console.log('anyHardcorePlayers: ', anyHardcorePlayers);
+
+//!======================================================
+
+// const arr = [10, 22, 34, 5, 1, 2, 40, 2, 2];
+
+// const hasValidElem = arr.some(elem => elem % 3 === 0);
+
+// console.log(hasValidElem);
