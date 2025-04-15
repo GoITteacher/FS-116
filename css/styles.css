@@ -74,3 +74,27 @@ body {
 .deposit {
   background-color: rgba(157, 255, 157, 0.429);
 }
+
+.my-active-item {
+  width: 200px;
+  /* background-color: teal; */
+  /* color: white; */
+  color: red;
+  border-radius: 5px;
+}
+
+.ligth-theme {
+  background-color: #fff;
+}
+
+.ligth-theme {
+  background-color: grey;
+}
+
+.user-avatar {
+  border-radius: 5px;
+  width: 300px;
+  padding: 15px;
+  margin: 10px;
+  border: 1px solid black;
+}

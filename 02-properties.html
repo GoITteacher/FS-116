@@ -15,6 +15,7 @@
         class="hero__image"
         src="https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=480"
         alt="It's me"
+        disabled
         width="320"
       />
     </section>
@@ -24,7 +25,15 @@
     <input type="text" class="js-input" />
 
     <div class="actions">
-      <button type="button" data-action="add">Create</button>
+      <button
+        type="button"
+        data-action="add"
+        data-hello-world="test"
+        data-test="123"
+        data-id="my-btn"
+      >
+        Create
+      </button>
       <button type="button" data-action="remove">Delete</button>
       <button type="button" data-action="edit">Edit</button>
     </div>

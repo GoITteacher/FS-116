@@ -23,7 +23,7 @@ const transactionHistory = [
     date: '2012-02-01T22:00:00.000Z',
     business: 'Beatty, Wisozk and Koch',
     name: 'Savings Account 1894',
-    type: 'withdrawal',
+    type: 'withdraw',
     account: '76727204',
   },
   {
@@ -32,7 +32,7 @@ const transactionHistory = [
     date: '2012-02-01T22:00:00.000Z',
     business: 'Hane - Bode',
     name: 'Personal Loan Account 2316',
-    type: 'withdrawal',
+    type: 'withdraw',
     account: '27462350',
   },
   {
@@ -68,7 +68,7 @@ const transactionHistory = [
     date: '2012-02-01T22:00:00.000Z',
     business: 'Stroman Inc',
     name: 'Savings Account 1383',
-    type: 'withdrawal',
+    type: 'withdraw',
     account: '18476423',
   },
   {
@@ -92,3 +92,26 @@ const transactionHistory = [
 ];
 
 const tableEl = document.querySelector('.js-transaction-table');
+
+function renderTransaction() {
+  const markup = transactionsTemplate(transactionHistory);
+  tableEl.lastElementChild.insertAdjacentHTML('beforeend', markup);
+}
+
+renderTransaction();
+
+function transactionTemplate(item) {
+  return `<tr class="table-item ${item.type}">
+          <td>${item.id}</td>
+          <td>${item.amount}</td>
+          <td>${item.date}</td>
+          <td>${item.business}</td>
+          <td>${item.type}</td>
+          <td>${item.name}</td>
+          <td>${item.account}</td>
+        </tr>`;
+}
+
+function transactionsTemplate(arr) {
+  return arr.map(transactionTemplate).join('');
+}
