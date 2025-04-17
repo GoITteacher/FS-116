@@ -68,3 +68,30 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+.box {
+  top: 100px;
+  left: 100px;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: absolute;
+}
+
+input:focus {
+  /* outline: none;  */
+}
+
+.valid {
+  border: 5px solid green;
+}
+.invalid {
+  border: 5px solid red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 300px;
+}
