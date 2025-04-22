@@ -5,7 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.css"
+      integrity="sha512-C+KPK958JmUdU8B9SVr8YpEZtQ1T1XrFX/OLvE/lt336DFWXFHL5Y9/tUewMEU+Uy3dUAS363XXLdBine0WDyQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./css/04-color-picker.css" />
+    <link rel="stylesheet" href="./css/modal.css" />
   </head>
   <body>
     <div class="backdrop js-backdrop">
@@ -13,34 +21,7 @@
     </div>
 
     <div class="box">
-      <ul class="colors-box js-colors-box">
-        <li class="color-item">
-          <button class="color-body" style="background-color: red"></button>
-          <div class="color-footer">
-            <div>HEX: ....</div>
-            <div>RGB: ....</div>
-            <div></div>
-          </div>
-        </li>
-
-        <li class="color-item">
-          <button class="color-body" style="background-color: red"></button>
-          <div class="color-footer">
-            <div>HEX: ....</div>
-            <div>RGB: ....</div>
-            <div></div>
-          </div>
-        </li>
-
-        <li class="color-item active">
-          <button class="color-body" style="background-color: red"></button>
-          <div class="color-footer">
-            <div>HEX: ....</div>
-            <div>RGB: ....</div>
-            <div></div>
-          </div>
-        </li>
-      </ul>
+      <ul class="colors-box js-colors-box"></ul>
       <input type="button" value="Reload Color" class="js-reload-color" />
     </div>
 
@@ -50,6 +31,8 @@
       onclick="history.back()"
       class="fixed-btn"
     />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.js"></script>
     <script src="js/04-color-picker.js"></script>
   </body>
 </html>

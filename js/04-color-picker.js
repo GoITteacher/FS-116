@@ -1,5 +1,5 @@
 let colorPalette = [];
-const LENGTH = 5;
+const LENGTH = 9;
 
 function createPaletteItems() {
   const items = [];
@@ -34,7 +34,7 @@ function hexToRgb(hex) {
 }
 
 createPaletteItems();
-////////////////////////////////////////////////////////////////////////////
+//!======================================================
 
 const refs = {
   itemList: document.querySelector('.js-colors-box'),
@@ -43,17 +43,70 @@ const refs = {
   backdropElem: document.querySelector('.js-backdrop'),
 };
 
-////////////////////////////////////////////////////////////////////////////
+//!======================================================
 
-/* 
-nodeName
-<li class="color-item">
-    <button class="color-body" style="background-color:...;"></button>
-    <div class="color-footer">
-        <div>HEX: ....</div>
-        <div>RGB: ....</div>
-        <div></div>
-    </div>
-</li>
+refs.btnReloadColor.addEventListener('click', () => {
+  createPaletteItems();
+  renderColors();
+});
 
-*/
+//!======================================================
+
+function colorTemplate(color) {
+  return `<li class="color-item" data-color="${color.hex}">
+          <button class="color-body" style="background-color: ${color.hex};"></button>
+          <div class="color-footer">
+            <div>HEX: ${color.hex}</div>
+            <div>RGB: ${color.rgb}</div>
+            <div></div>
+          </div>
+        </li>`;
+}
+
+function colorsTemplate(colors) {
+  return colors.map(colorTemplate).join('\n');
+}
+
+function renderColors() {
+  const markup = colorsTemplate(colorPalette);
+  refs.itemList.innerHTML = markup;
+}
+
+renderColors();
+
+//!======================================================
+
+// function showModal() {
+//   document.body.classList.add('show-modal');
+// }
+
+// function hideModal() {
+//   document.body.classList.remove('show-modal');
+// }
+
+//!======================================================
+
+// refs.itemList.addEventListener('click', e => {
+//   const colorElem = e.target.closest('.color-item');
+//   if (!colorElem) return;
+
+//   const color = colorElem.dataset.color;
+//   openModal(color);
+// });
+
+// refs.backdropElem.addEventListener('click', e => {
+//   if (e.target === e.currentTarget) {
+//     hideModal();
+//   }
+// });
+
+//!======================================================
+
+function openModal(color) {
+  const instance = basicLightbox.create(`
+    <div class="modal" style="background-color: ${color};">
+    <h1>${color}</h1>
+  </div>`);
+
+  instance.show();
+}
