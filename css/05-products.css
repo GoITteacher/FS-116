@@ -38,7 +38,7 @@ ul {
   width: 500px;
   padding: 20px;
   user-select: none;
-  background-color: white;
+  background-color: rgb(229, 174, 174);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   display: flex;

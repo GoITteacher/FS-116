@@ -34,5 +34,5 @@ body.show-modal .backdrop {
   -moz-background-clip: padding-box;
   background-clip: padding-box;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(238, 156, 156, 0.9);
 }
