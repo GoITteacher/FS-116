@@ -1,25 +1,58 @@
 /*
  * Метод window.setTimeout(callback, delay, args)
  */
+//!======================================================
+// console.log('START');
 
-console.log("До виклику setTimeout");
+// setTimeout(function () {
+//   console.log('Hello timeout');
+// }, 0);
 
-console.log("1 - Всередині зворотного виклику для setTimeout");
+// for (let i = 0; i < 10000; i++) {
+//   console.log('HELLO');
+// }
 
-console.log("2 - Всередині зворотного виклику для setTimeout");
+// console.log('END');
+//!======================================================
 
-console.log("Після виклику setTimeout");
+// setTimeout(function () {
+//   console.log('Hello timeout1');
+// }, 3000);
 
+// setTimeout(function () {
+//   console.log('Hello timeout2');
+// }, 1000);
+
+// setTimeout(function () {
+//   console.log('Hello timeout3');
+// }, 2000);
+
+//!======================================================
+
+// for (let i = 0; i < 5; i++) {
+//   setTimeout(()=>{}, i * 1000, i);
+// }
+
+// for (let i = 0; i < 5; i++) {
+//   setTimeout(() => {
+//     showX(i);
+//   }, i * 1000);
+// }
+
+// function showX(x) {
+//   console.log('x=', x);
+// }
+
+//!======================================================
 /*
  * Очищення таймаута за допомогою clearTimeout(timeoutId)
  */
-const logger = (time) => {
-  console.log(`Лог через ${time} мс, оскільки не скасували таймаут`);
-};
 
-/**
- * Можливість передати параметри для колбеку
- */
-const id = setTimeout((name, country) => {
-  console.log(`Hello, my name is ${name}, I'm from ${country}`);
-}, 1000);
+// const timeoutId = setTimeout(() => {
+//   console.log('Hello world');
+// }, 1000);
+
+// clearTimeout(timeoutId);
+
+// const id = setTimeout(() => {}, 1000);
+// clearTimeout(id);

@@ -3,53 +3,59 @@
  * запускати та зупиняти відлік часу
  */
 
-class Timer {
-  constructor() {}
-
-  start() {}
-
-  stop() {}
-
-  /*
-   * - Приймає час в мілісекундах
-   * - Вираховує скільки в них вміщається годин/хвилин/секунд
-   * - Повертає об'єкт з властивостями hours, mins, secs
-   * - Адська копіпаста з stackoverflow 💩
-   */
-  getTimeComponents(time) {
-    const hours = this.pad(
-      Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    );
-    const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-    const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
-
-    return { hours, mins, secs };
-  }
-
-  /*
-   * Приймає число, перетворює його в рядок і додає в початок 0, якщо число менше 2-х знаків
-   */
-  pad(value) {
-    return String(value).padStart(2, "0");
-  }
-}
-
-const startBtn = document.querySelector("button[data-action-start]");
-const stopBtn = document.querySelector("button[data-action-stop]");
-const clockface = document.querySelector(".js-clockface");
-
-const timer = new Timer({
-  onTick: updateClockface,
-});
-
-// startBtn.addEventListener("click", timer.start.bind(timer));
-// stopBtn.addEventListener("click", timer.stop.bind(timer));
+const startBtn = document.querySelector('button[data-action-start]');
+const stopBtn = document.querySelector('button[data-action-stop]');
+const clockface = document.querySelector('.js-clockface');
 
 /*
  * - Приймає час в мілісекундах
  * - Вираховує скільки в них вміщається годин/хвилин/секунд
  * - Рисує інтерфейс
  */
-function updateClockface({ hours, mins, secs }) {
-  clockface.textContent = `${hours}:${mins}:${secs}`;
+//!======================================================
+
+let intervalId;
+
+//!======================================================
+
+startBtn.addEventListener('click', () => {
+  const initTime = new Date();
+
+  intervalId = setInterval(() => {
+    const currentTime = new Date();
+    const diffMS = currentTime - initTime;
+    const timeStr = timeToStr(diffMS);
+    clockface.textContent = timeStr;
+  }, 1000);
+
+  stopBtn.disabled = false;
+  startBtn.disabled = true;
+});
+
+stopBtn.addEventListener('click', () => {
+  clearInterval(intervalId);
+  stopBtn.disabled = true;
+  startBtn.disabled = false;
+  clockface.textContent = '00:00:00';
+});
+
+//!======================================================
+
+function getTimeComponents(time) {
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((time % (1000 * 60)) / 1000);
+
+  return { hours, mins, secs };
+}
+
+function timeToStr(ms) {
+  const { hours, mins, secs } = getTimeComponents(ms);
+
+  let h = hours.toString().padStart(2, '0');
+  let m = mins.toString().padStart(2, '0');
+  let s = secs.toString().padStart(2, '0');
+
+  return `${h}:${m}:${s}`;
 }
