@@ -1,3 +1,5 @@
+import iziToast from 'izitoast';
+
 /*
  * Метод window.setTimeout(callback, delay, args)
  */

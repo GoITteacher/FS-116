@@ -59,3 +59,17 @@ function timeToStr(ms) {
 
   return `${h}:${m}:${s}`;
 }
+
+//!======================================================
+
+// let counter = 0;
+
+// const intervalIdd = setInterval(() => {
+//   //......
+
+//   counter++;
+
+//   if (counter > 10) {
+//     clearInterval(intervalIdd);
+//   }
+// });
