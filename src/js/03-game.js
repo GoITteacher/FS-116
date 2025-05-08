@@ -23,3 +23,54 @@
 const startBtn = document.querySelector('.start-btn');
 const container = document.querySelector('.container');
 const result = document.querySelector('.result');
+
+function createPromise(delay) {
+  const promise = new Promise((res, rej) => {
+    const isActive = Math.random() > 0.4;
+    setTimeout(() => {
+      if (isActive) {
+        res('🤑');
+      } else {
+        rej('👿');
+      }
+    }, delay);
+  });
+
+  return promise;
+}
+
+startBtn.addEventListener('click', () => {
+  clearContainer();
+  const promises = [];
+
+  for (let i = 0; i < 3; i++) {
+    const promise = createPromise(i * 100);
+
+    promise
+      .then(smile => {
+        container.children[i].textContent = smile;
+      })
+      .catch(smile => {
+        container.children[i].textContent = smile;
+      });
+
+    promises.push(promise);
+  }
+
+  Promise.all(promises)
+    .then(() => {
+      result.textContent = 'Ви виграли бонус бай';
+    })
+    .catch(() => {
+      result.textContent = 'Спробуйте ще раз. Вам обовязково пощастить!!!';
+    });
+});
+
+function clearContainer() {
+  result.textContent = '';
+  container.children[0].textContent = '';
+  container.children[1].textContent = '';
+  container.children[2].textContent = '';
+}
+
+//!======================================================
