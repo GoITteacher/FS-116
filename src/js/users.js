@@ -1,12 +1,13 @@
 import {
-  deleteUser,
+  createUser,
   getUsers,
-  resetUser,
   updateUser,
-} from './modules/usersAPI';
-import { createUser } from './modules/usersAPI';
+  deleteUser,
+  resetUser,
+} from './modules/usersAPI.js';
 
-// ===================================================
+//!======================================================
+
 const refs = {
   userListElem: document.querySelector('.js-user-list'),
   createUserForm: document.querySelector('.js-create-form'),
@@ -15,106 +16,109 @@ const refs = {
   deleteUserForm: document.querySelector('.js-delete-form'),
 };
 
-// ============================================================
+//!======================================================
 
-refs.createUserForm.addEventListener('submit', onCreateUser);
-refs.updateUserForm.addEventListener('submit', onUpdateUser);
-refs.resetUserForm.addEventListener('submit', onResetUser);
-refs.deleteUserForm.addEventListener('submit', onDeleteUser);
+refs.createUserForm.addEventListener('submit', handleUserCreate);
+refs.updateUserForm.addEventListener('submit', handleUserUpdate);
+refs.resetUserForm.addEventListener('submit', handleUserReset);
+refs.userListElem.addEventListener('click', handleUserRemove);
 
-function onCreateUser(e) {
+function handleUserCreate(e) {
   e.preventDefault();
 
-  const myData = {
-    email: e.target.elements.userEmail.value,
+  const user = {
     name: e.target.elements.userName.value,
+    email: e.target.elements.userEmail.value,
     phone: e.target.elements.userPhone.value,
-    img: `https://source.unsplash.com/720x1280/?random=${Math.random()}&girl,portret,celebrity`,
   };
 
-  createUser(myData).then(newUser => {
+  createUser(user).then(newUser => {
     const markup = userTemplate(newUser);
     refs.userListElem.insertAdjacentHTML('afterbegin', markup);
   });
 
   e.target.reset();
 }
-function onUpdateUser(e) {
+
+function handleUserUpdate(e) {
   e.preventDefault();
 
-  const myData = {};
-  const formData = new FormData(refs.updateUserForm);
+  const formData = new FormData(e.target);
+  const info = {};
 
   formData.forEach((value, key) => {
     if (value) {
-      myData[key] = value;
+      info[key] = value;
     }
   });
+  const id = info.id;
 
-  updateUser(myData).then(updatedUser => {
-    const markup = userTemplate(updatedUser);
-    const oldUser = document.querySelector(`[data-id="${myData.id}"]`);
-    oldUser.insertAdjacentHTML('afterend', markup);
-    oldUser.remove();
+  if (!id) {
+    console.log('Error');
+    return;
+  }
+
+  updateUser(id, info).then(user => {
+    const oldElem = document.querySelector(`[data-id="${user.id}"]`);
+    const markup = userTemplate(user);
+    oldElem.insertAdjacentHTML('afterend', markup);
+    oldElem.remove();
   });
 
   e.target.reset();
 }
-function onResetUser(e) {
-  e.preventDefault();
 
-  const myData = {};
-  const formData = new FormData(refs.resetUserForm);
-
-  formData.forEach((value, key) => {
-    myData[key] = value;
-  });
-
-  resetUser(myData).then(updatedUser => {
-    const markup = userTemplate(updatedUser);
-    const oldUser = document.querySelector(`[data-id="${myData.id}"]`);
-    oldUser.insertAdjacentHTML('afterend', markup);
-    oldUser.remove();
-  });
-
-  e.target.reset();
-}
-function onDeleteUser(e) {
+function handleUserReset(e) {
   e.preventDefault();
 
   const id = e.target.elements.userId.value;
 
-  deleteUser(id)
-    .then(() => {
-      const oldUser = document.querySelector(`[data-id="${id}"]`);
-      oldUser.remove();
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  const user = {
+    name: e.target.elements.userName.value,
+    email: e.target.elements.userEmail.value,
+    phone: e.target.elements.userPhone.value,
+  };
+
+  resetUser(id, user).then(user => {
+    const oldElem = document.querySelector(`[data-id="${user.id}"]`);
+    const markup = userTemplate(user);
+    oldElem.insertAdjacentHTML('afterend', markup);
+    oldElem.remove();
+  });
 
   e.target.reset();
 }
 
-// ============================================================
+function handleUserRemove(e) {
+  if (e.target.nodeName !== 'BUTTON') return;
 
+  const liElem = e.target.closest('li');
+  const id = liElem.dataset.id;
+
+  deleteUser(id).then(() => {
+    const oldElem = document.querySelector(`[data-id="${id}"]`);
+    oldElem.remove();
+  });
+}
+
+//!======================================================
 getUsers().then(users => {
   const markup = usersTemplate(users);
   refs.userListElem.innerHTML = markup;
 });
 
-// ============================================================
+//!======================================================
 
 function userTemplate({ id, name, img, email, phone }) {
   return `<li class="card user-item" data-id="${id}">
   <img
-    src="https://source.unsplash.com/720x1280/?random=${id}&girl,portret,celebrity"
+    src="https://picsum.photos/1280/720?random=${id}&girl,portret,celebrity"
     alt="#"
     class="user-avatar"
   />
   <h3 class="user-title">${name}</h3>
-  <p>Phone: ${email}</p>
-  <p>Email: ${phone}</p>
+  <p>Phone: ${phone}</p>
+  <p>Email: ${email}</p>
   <button class="btn button">DELETE</button>
 </li>`;
 }
@@ -123,4 +127,4 @@ function usersTemplate(arr) {
   return arr.map(userTemplate).join('\n\n\n\n');
 }
 
-// =======================================
+//!======================================================
