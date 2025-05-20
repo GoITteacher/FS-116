@@ -18,14 +18,8 @@ refs.deleteFormElem.addEventListener('submit', onDeleteFormSubmit);
 
 // ===========================================
 
-booksAPI
-  .getBooks()
-  .then(data => {
-    renderBooks(data.reverse());
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// const data = await booksAPI.getBooks();
+// renderBooks(data.reverse());
 
 // ===========================================
 
@@ -60,7 +54,7 @@ function renderBooks(books) {
 
 // ===========================================
 
-function onCreateFormSubmit(e) {
+async function onCreateFormSubmit(e) {
   e.preventDefault();
 
   const book = {
@@ -69,15 +63,18 @@ function onCreateFormSubmit(e) {
     desc: e.target.elements.bookDesc.value,
   };
 
-  booksAPI.createBook(book).then(newBook => {
+  try {
+    const newBook = await booksAPI.createBook(book);
     const markup = templateBook(newBook);
     refs.bookListElem.insertAdjacentHTML('afterbegin', markup);
-  });
+  } catch (err) {
+    console.log(err);
+  }
 
   e.target.reset();
 }
 
-function onResetFormSubmit(e) {
+async function onResetFormSubmit(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
@@ -88,17 +85,20 @@ function onResetFormSubmit(e) {
     book[key] = value;
   });
 
-  booksAPI.resetBook(book.id, book).then(newBook => {
+  try {
+    const newBook = await booksAPI.resetBook(book.id, book);
     const oldBookCard = document.querySelector(`[data-id="${book.id}"]`);
     const markup = templateBook(newBook);
     oldBookCard.insertAdjacentHTML('afterend', markup);
     oldBookCard.remove();
-  });
+  } catch (err) {
+    console.log(err);
+  }
 
   e.target.reset();
 }
 
-function onUpdateFormSubmit(e) {
+async function onUpdateFormSubmit(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
@@ -109,23 +109,27 @@ function onUpdateFormSubmit(e) {
     if (value) book[key] = value;
   });
 
-  booksAPI.updateBook(book.id, book).then(newBook => {
+  try {
+    const newBook = await booksAPI.updateBook(book.id, book);
     const oldBookCard = document.querySelector(`[data-id="${book.id}"]`);
     const markup = templateBook(newBook);
     oldBookCard.insertAdjacentHTML('afterend', markup);
     oldBookCard.remove();
-  });
+    console.log(newBook);
+  } catch (err) {
+    console.log(err);
+  }
 
   e.target.reset();
 }
 
-function onDeleteFormSubmit(e) {
-  e.preventDefault();
-  const id = e.target.elements.bookId.value;
-  booksAPI.deleteBook(id).then(() => {
-    const oldBookCard = document.querySelector(`[data-id="${id}"]`);
-    oldBookCard.remove();
-  });
-}
+// async function onDeleteFormSubmit(e) {
+//   e.preventDefault();
+//   const id = e.target.elements.bookId.value;
+
+//   await booksAPI.deleteBook(id);
+//   const oldBookCard = document.querySelector(`[data-id="${id}"]`);
+//   oldBookCard.remove();
+// }
 
 // =========================

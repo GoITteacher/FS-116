@@ -5,12 +5,13 @@ export class BooksAPI {
     this.API_KEY = '123123';
   }
 
-  getBooks() {
+  async getBooks() {
     const url = this.BASE_URL + this.END_POINT;
-    return fetch(url).then(res => res.json());
+    const res = await fetch(url);
+    return res.json();
   }
 
-  createBook(data) {
+  async createBook(data) {
     const url = this.BASE_URL + this.END_POINT;
 
     const options = {
@@ -21,7 +22,12 @@ export class BooksAPI {
       body: JSON.stringify(data),
     };
 
-    return fetch(url, options).then(res => res.json());
+    try {
+      const res = await fetch(url, options);
+      return res.json();
+    } catch {
+      return {};
+    }
   }
 
   updateBook(id, book) {

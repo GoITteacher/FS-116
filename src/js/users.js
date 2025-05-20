@@ -12,14 +12,16 @@ const refs = {
 
 const usersAPI = new UsersAPI();
 
-usersAPI
-  .getUsers()
-  .then(data => {
-    renderUsers(data.reverse());
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// async function init() {
+//   try {
+//     const data = await usersAPI.getUsers();
+//     renderUsers(data.reverse());
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+// init();
 
 // ==========================================================
 
