@@ -12,16 +12,26 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/pokemon.css" />
+    <link rel="stylesheet" href="../css/article.css" />
   </head>
   <body>
-    <ul class="pokemon-list js-pokemon-list"></ul>
+    <div class="header">
+      <form class="form-inline search-form js-search-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="query" />
+        </div>
 
-    <div style="display: flex; gap: 10px">
-      <button class="btn btn-primary button js-btn-prev">PREV</button>
-      <button class="btn btn-primary button js-btn-next">NEXT</button>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
     </div>
 
+    <ul class="news-list js-article-list"></ul>
+
+    <div id="pagination1" class="tui-pagination js-pagination"></div>
+
+    <div class="spinner-grow hidden js-loader" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
     <script src="../js/03-pagination.js" type="module"></script>
   </body>
 </html>

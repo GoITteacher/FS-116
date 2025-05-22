@@ -1,84 +1,65 @@
-import { getPokemons, getPokemonInfo } from './modules/pokemonApi';
-const url = `https://pokeapi.co/api/v2/pokemon?limit=8&offset=0`;
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import { getArticles } from './modules/newsAPI';
+import { articlesTemplate } from './templates/render-functions';
+import { PAGE_SIZE } from './constants';
+
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
 
 const refs = {
   formElem: document.querySelector('.js-search-form'),
-  pokemonListElem: document.querySelector('.js-pokemon-list'),
-  prevBtnElem: document.querySelector('.js-btn-prev'),
-  nextBtnElem: document.querySelector('.js-btn-next'),
+  articleListElem: document.querySelector('.js-article-list'),
+  targetElem: document.querySelector('.js-target'),
+  loadElem: document.querySelector('.js-loader'),
+  paganation: document.querySelector('.js-pagination'),
 };
 
-let nextUrl = '';
-let prevUrl = '';
+//!======================================================
 
-getPokemons(url).then(data => {
-  loadPokemonData(data);
+let userValue;
+let currentPage;
+let maxPage;
+
+//!======================================================
+
+refs.formElem.addEventListener('submit', async e => {
+  e.preventDefault();
+
+  userValue = e.target.elements.query.value;
+  currentPage = 1;
+
+  const res = await getArticles(userValue, currentPage);
+  const markup = articlesTemplate(res.articles);
+  refs.articleListElem.innerHTML = markup;
+  maxPage = Math.ceil(res.totalResults / PAGE_SIZE);
+
+  paganation.reset(res.totalResults);
+
+  e.target.reset();
+});
+//!======================================================
+
+// refs.paganation.addEventListener('click', async e => {
+//   if (e.target.nodeName !== 'BUTTON') return;
+
+//   const page = Number(e.target.textContent);
+
+//   const res = await getArticles(userValue, page);
+//   const markup = articlesTemplate(res.articles);
+//   refs.articleListElem.innerHTML = markup;
+// });
+//!======================================================
+
+const paganation = new Pagination(refs.paganation, {
+  totalItems: 0,
+  itemsPerPage: PAGE_SIZE,
 });
 
-function pokemonTemplate({
-  sprites,
-  name,
-  id,
-  weight,
-  height,
-  base_experience,
-  order,
-}) {
-  return `<li class="card pokemon">
-  <img
-    class="pokemon-img"
-    src="${sprites.front_default}"
-    alt="#"
-  />
-  <div class="pokemon-header">
-    <h4 class="pokemon-title">${name}</h4>
-    <span class="pokemon-id">#${(id + '').padStart(5, '0')}</span>
-  </div>
+paganation.on('afterMove', async event => {
+  const currentPage = event.page;
 
-  <div class="pokemon-desc">
-    <span>Weight: ${weight}</span>
-    <span>Height: ${height}</span>
-    <span>Experience: ${base_experience}</span>
-    <span>Order: ${order}</span>
-  </div>
-
-  <div class="pokemon-footer"></div>
-</li>`;
-}
-
-function renderPokemon(pokemonList) {
-  const markup = pokemonList.map(pokemonTemplate).join('');
-  refs.pokemonListElem.innerHTML = markup;
-}
-
-refs.nextBtnElem.addEventListener('click', onBtnNextClick);
-refs.prevBtnElem.addEventListener('click', onBtnPrevClick);
-
-function onBtnNextClick() {
-  getPokemons(nextUrl).then(data => {
-    loadPokemonData(data);
-  });
-}
-
-function onBtnPrevClick() {
-  getPokemons(prevUrl).then(data => {
-    loadPokemonData(data);
-  });
-}
-
-function updateBtn() {
-  refs.prevBtnElem.disabled = !prevUrl;
-  refs.nextBtnElem.disabled = !nextUrl;
-}
-
-function loadPokemonData(data) {
-  const { next, previous, results } = data;
-  nextUrl = next;
-  prevUrl = previous;
-  updateBtn();
-  getPokemonInfo(results).then(pokemonList => {
-    renderPokemon(pokemonList);
-  });
-}
-
-// =========
+  const res = await getArticles(userValue, currentPage);
+  const markup = articlesTemplate(res.articles);
+  refs.articleListElem.innerHTML = markup;
+});
